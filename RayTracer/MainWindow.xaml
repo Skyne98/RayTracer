@@ -10,7 +10,9 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Image x:Name="renderedImage">
-        </Image>
+        
+        <StackPanel x:Name="renderPanel" SizeChanged="renderPanel_SizeChanged">
+            <Image x:Name="renderedImage"/>
+        </StackPanel>
     </Grid>
 </Window>
