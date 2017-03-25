@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RayTracer.Objects;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,10 +25,18 @@ namespace RayTracer.Scene
             set { _renderer = value; }
         }
 
+        private List<Object3D> _objects;
+
+        public List<Object3D> Objects
+        {
+            get { return _objects; }
+        }
+
         public Scene()
         {
             _camera = new Camera();
             _renderer = new Renderer(this, 10);
+            _objects = new List<Object3D>();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Nexus;
+using RayTracer.Objects;
 using RayTracer.Structs;
 using System;
 using System.Collections.Generic;

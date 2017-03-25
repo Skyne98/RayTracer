@@ -50,9 +50,12 @@ namespace RayTracer.Scene
 
             if (pixelRay.Vectors.Count == 1)
             {
+                return Colors.Black;
+            }
+            else if(pixelRay.Vectors.Count > 1)
+            {
                 return _ambientColor;
             }
-
             //TODO: Add more color logics
             return _ambientColor;
         }

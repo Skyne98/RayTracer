@@ -5,16 +5,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using RayTracer.Scene;
+using RayTracer.Objects;
 
 namespace RayTracer.Structs
 {
     public class Ray
     {
-        private float _length;
-        public float Length
+        private float _remainingLength;
+
+        public float RemainingLength
         {
-            get { return _length; }
+            get { return _remainingLength; }
         }
+
 
         private float _maxLength;
         public float MaxLength
@@ -22,10 +25,10 @@ namespace RayTracer.Structs
             get { return _maxLength; }
         }
 
-        private List<Vector3D> _vectors;
-        public List<Vector3D> Vectors
+        private List<CollisionVector> _collisionVectors;
+        public List<CollisionVector> CollisionVectors
         {
-            get { return _vectors; }
+            get { return _collisionVectors; }
         }
 
         private Vector3D _position;
@@ -51,6 +54,7 @@ namespace RayTracer.Structs
             _position = position;
             _direction = direction;
             _maxLength = maxLength;
+            _remainingLength = _maxLength;
         }
 
         /// <summary>
@@ -60,10 +64,22 @@ namespace RayTracer.Structs
         public void Cast(Scene.Scene scene)
         {
             //TODO: Make more complex raycasting
-            _vectors = new List<Vector3D>();
+            _collisionVectors = new List<CollisionVector>();
 
-            var tempVector = new Vector3D(_direction.X, _direction.Y, _direction.Z);
-            tempVector.Normalize();
+            var objects = scene.Objects;
+            CollisionVector maxCollisionVector = new CollisionVector(scene.Renderer.AmbientColor, _direction * _maxLength);
+            foreach (var obj in objects)
+            {
+                var collisionVector = obj.CollidesWith(tempVector);
+                if(collisionVector != null)
+                {
+                    if(nearestCollisionVector.Vector.Length() > collisionVector.Vector.Length())
+                    {
+                        nearestCollisionVector = collisionVector;
+                    }
+                   // _collisionVectors.Add(collisionVector);
+                }
+            }
 
             _vectors.Add(tempVector * _maxLength);
         }
