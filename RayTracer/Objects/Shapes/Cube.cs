@@ -8,17 +8,9 @@ namespace RayTracer.Objects.Shapes
 {
     public class Cube : Object3D
     {
-        private BaseUnit _unit;
-
-        public BaseUnit Unit
-        {
-            get { return _unit; }
-        }
-
         public Cube()
         {
-            _unit = new BaseUnit();
-            Units.Add(_unit);
+            Units.Add(new BaseUnit());
         }
     }
 }

@@ -66,6 +66,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Extensions.cs" />
     <Compile Include="Objects\BaseUnit.cs" />
     <Compile Include="Objects\Object3D.cs" />
     <Compile Include="Objects\Shapes\Cube.cs" />

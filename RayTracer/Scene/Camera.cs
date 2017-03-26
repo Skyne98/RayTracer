@@ -51,7 +51,7 @@ namespace RayTracer.Scene
         public void Render()
         {
             //render stuff
-            Console.WriteLine($"Rendered to viewport {_width} / {_height}");
+            Console.WriteLine($"Rendering to viewport {_width} / {_height}");
         }
     }
 }

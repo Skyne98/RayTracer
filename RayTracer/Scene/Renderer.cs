@@ -43,16 +43,16 @@ namespace RayTracer.Scene
         public Color RenderPixel(int x, int y)
         {
             var pixelPosition = new Vector3D(x, y, 0);
-            var transformedPixelPosition = _scene.Camera.Transform.TransformationMatrix.Transform(pixelPosition);
+            var transformedPixelPosition = _scene.Camera.Transform.TransformationMatrix.TransformVector(pixelPosition);
 
             Ray pixelRay = new Ray(transformedPixelPosition, _scene.Camera.Transform.Forward, _length);
             pixelRay.Cast(_scene);
 
-            if (pixelRay.Vectors.Count == 1)
+            if (pixelRay.CollisionVectors.Count == 1)
             {
                 return Colors.Black;
             }
-            else if(pixelRay.Vectors.Count > 1)
+            else if(pixelRay.CollisionVectors.Count > 1)
             {
                 return _ambientColor;
             }

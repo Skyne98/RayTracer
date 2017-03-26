@@ -1,4 +1,7 @@
-﻿using RayTracer.Scene;
+﻿using Nexus;
+using RayTracer.Objects;
+using RayTracer.Objects.Shapes;
+using RayTracer.Scene;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +25,7 @@ namespace RayTracer
     public partial class MainWindow : Window
     {
         Scene.Scene _scene;
+        Cube _cube;
 
         public MainWindow()
         {
@@ -29,6 +33,15 @@ namespace RayTracer
 
             _scene = new Scene.Scene();
             _scene.Renderer.AmbientColor = Nexus.Graphics.Colors.Colors.Green;
+
+            //_scene.Camera.Transform.Position = new Vector3D(0, 100, 0);
+            _scene.Camera.Transform.Rotation += new Vector3D(0, 0, 0);
+
+            _cube = new Cube();
+            _cube.Transform.Position = new Vector3D(125, 75, 20);
+            _cube.Transform.Scale = new Vector3D(20, 40, 20);
+            //cube.Transform.Rotation = new Vector3D(45, 45, 45);
+            _scene.Objects.Add(_cube);
         }
 
         private void renderPanel_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -64,6 +77,16 @@ namespace RayTracer
             }
 
             renderedImage.Source = bitmap;
+        }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Space)
+            {
+                _cube.Transform.Rotation += new Vector3D(0, 15, 15);
+
+                RenderToImage();
+            }
         }
     }
 }

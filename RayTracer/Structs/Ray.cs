@@ -65,23 +65,32 @@ namespace RayTracer.Structs
         {
             //TODO: Make more complex raycasting
             _collisionVectors = new List<CollisionVector>();
+            _remainingLength = _maxLength;
 
-            var objects = scene.Objects;
-            CollisionVector maxCollisionVector = new CollisionVector(scene.Renderer.AmbientColor, _direction * _maxLength);
+            var objects = scene.Objects.ToList();
+            Object3D collidedObject = null;
+            CollisionVector collidedObjectVector = null;
+
             foreach (var obj in objects)
             {
-                var collisionVector = obj.CollidesWith(tempVector);
-                if(collisionVector != null)
+                var collision = obj.CollidesWith(_direction, _position);
+
+                if (collision != null)
                 {
-                    if(nearestCollisionVector.Vector.Length() > collisionVector.Vector.Length())
+                    if (collidedObject == null || collision.Vector.Length() < collidedObjectVector.Vector.Length())
                     {
-                        nearestCollisionVector = collisionVector;
+                        collidedObject = obj;
+                        collidedObjectVector = collision;
                     }
-                   // _collisionVectors.Add(collisionVector);
                 }
             }
 
-            _vectors.Add(tempVector * _maxLength);
+            if (collidedObject != null)
+            {
+                _collisionVectors.Add(collidedObjectVector);
+            }
+
+            _collisionVectors.Add(null);
         }
     }
 }
